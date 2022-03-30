@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace强调映射哪个dao接口-->
+<mapper namespace="com.beyondsoft.springcloud.alibaba.dao.OrderDao">
+    <resultMap id="BaseResultMap" type="com.beyondsoft.springcloud.alibaba.domain.Order">
+        <!--column:和数据库中的字段对应，column:和实体类中的字段对应-->
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="product_id" property="productId" jdbcType="BIGINT"/>
+        <result column="count" property="count" jdbcType="INTEGER"/>
+        <result column="money" property="money" jdbcType="DECIMAL"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+    </resultMap>
+    <!--useGeneratedKeys:执行插入后让其返回值-->
+    <insert id="create">
+        insert  into t_order(id,user_id,product_id,count,money,status) <!--和数据库的字段名一致-->
+        values(null,#{userId},#{productId},#{count},#{money},0); <!--和实体类一致-->
+    </insert>
+    <update id="update">
+        update t_order set status = 1 where user_id=#{userId} and status=#{status};
+    </update>
+</mapper>
